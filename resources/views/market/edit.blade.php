@@ -1,7 +1,8 @@
 <x-main-layout>
     <h1>{{ $market->title }}</h1>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="{{ route('market.update', $market) }}" method="post" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <select name="type">
             <option value="">Select an option</option>
 

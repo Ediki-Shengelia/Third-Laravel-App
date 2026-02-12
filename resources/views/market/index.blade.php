@@ -3,6 +3,7 @@
         <p>{{ session('success') }}</p>
     @endif
     <h1>Main page</h1>
+    <a href="{{ route('market.create') }}">Create</a>
     <ul>
         @forelse ($products as $product)
             <li>

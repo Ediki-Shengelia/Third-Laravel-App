@@ -8,4 +8,10 @@
     @if ($market->description)
         <p>{{ $market->description }}</p>
     @endif
+    <a href="{{ route('market.edit', $market) }}">Edit</a>
+    <form action="{{ route('market.destroy', $market) }}" method="post">
+        @csrf
+        @method('DELETE')
+        <button>Delete</button>
+    </form>
 </x-main-layout>
