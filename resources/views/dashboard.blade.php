@@ -10,6 +10,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
+                    <img class="h-20 w-20" src="{{ Storage::url(auth()->user()->photo) }}" alt="">
+                    <p>{{ auth()->user()->name }}
+                        <span class="text-red-500">{{ auth()->user()->email }}</span>
+                    </p>
                 </div>
             </div>
         </div>

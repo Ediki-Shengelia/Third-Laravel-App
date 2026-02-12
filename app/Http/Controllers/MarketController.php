@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProduct;
 use Illuminate\Http\Request;
 
 class MarketController extends Controller
@@ -11,7 +12,8 @@ class MarketController extends Controller
      */
     public function index()
     {
-        //
+        $products = \App\Models\Market::all();
+        return view('market.index', compact('products'));
     }
 
     /**
@@ -42,32 +44,40 @@ class MarketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(\App\Models\Market $market)
     {
-        //
+        $this->authorize('view', $market);
+        return view('market.show', compact('market'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(\App\Models\Market $market)
     {
-        //
+        $this->authorize('update', $market);
+        $raxac = \App\Models\Market::$type;
+        return view('market.edit', compact('market', 'raxac'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateProduct $request, \App\Models\Market $market)
     {
-        //
+        $this->authorize('update', $market);
+        $data = $request->validated();
+        $market->update($data);
+        return redirect()->route('market.index')->with('success', "Product updated successfully");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(\App\Models\Market $market)
     {
-        //
+        $this->authorize('delete', $market);
+        $market->delete();
+        return redirect()->route('market.index')->with('success', "Product deleted successfully");
     }
 }
