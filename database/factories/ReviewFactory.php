@@ -17,10 +17,10 @@ class ReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            'review' => fake()->paragraph,
+            'review' => fake()->paragraph(),
             'rating' => fake()->numberBetween(1, 5),
-            'user_id' => null,
-            'market_id' => null,
+            'user_id' => \App\Models\User::factory(),
+            'market_id' => \App\Models\Market::factory(),
             'created_at' => fake()->dateTimeBetween('-2 years'),
             'updated_at' => function (array $attribute) {
                 return fake()->dateTimeBetween($attribute['created_at'], 'now');
