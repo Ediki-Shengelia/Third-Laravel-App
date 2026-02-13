@@ -14,4 +14,19 @@
         @method('DELETE')
         <button>Delete</button>
     </form>
+    <a href="{{ route('market.review.create', $market) }}">Add review</a>
+
+    <div class=" flex flex-col gap-3">
+        @forelse ($market->reviews as $item)
+            <div class="bg-green-200 p-4  text-center">
+                <p>{{ $item->review }}</p>
+                <p>created at {{ $item->created_at->format('M d Y') }}</p>
+                <x-star-rating :rating="$item->rating" />
+
+            </div>
+
+        @empty
+            <p>There is no reviewss</p>
+        @endforelse
+    </div>
 </x-main-layout>

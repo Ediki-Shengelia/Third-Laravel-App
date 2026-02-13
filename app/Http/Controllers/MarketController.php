@@ -13,10 +13,19 @@ class MarketController extends Controller
     public function index()
     {
         $search = request('search');
+        $filter = request('filter', '');
         $products = \App\Models\Market::when(
             $search,
             fn($q, $search) => $q->title($search)
         );
+        $products = match ($filter) {
+
+            'popular_last_month' => $products->popularLastMonth(),
+            'popular_last_6months' => $products->popularLast6Months(),
+            'highest_rated_last_month' => $products->highestRatedLastMonth(),
+            'highest_rated_last_6months' => $products->highestRatedLast6Months(),
+            default => $products->latest(),
+        };
         // $products = \App\Models\Market::all();
         $products = $products->get();
         return view('market.index', compact('products'));

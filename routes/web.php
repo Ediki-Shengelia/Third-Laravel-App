@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile.photo', [ProfileController::class, 'uploadPhoto'])->name('uploadPhoto');
     Route::resource('market', \App\Http\Controllers\MarketController::class);
+    Route::resource('market.review', \App\Http\Controllers\ReviewController::class)
+        ->only(['create', 'store']);
 });
 
 require __DIR__ . '/auth.php';

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Market;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -17,18 +18,32 @@ class ReviewController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(\App\Models\Market $market)
     {
-        //
+
+        return view('market.reviews.create', compact('market'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Market $market)
     {
-        //
+        $data = $request->validate([
+            'review' => 'required|min:15',
+            'rating' => 'required|min:1|max:5|integer'
+        ]);
+
+        // Using the relationship automatically sets the market_id for you!
+        $market->reviews()->create([
+            'review' => $data['review'],
+            'rating' => $data['rating'],
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()->route('market.show', $market);
     }
+
 
     /**
      * Display the specified resource.
