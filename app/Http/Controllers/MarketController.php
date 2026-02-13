@@ -52,7 +52,7 @@ class MarketController extends Controller
      */
     public function show(\App\Models\Market $market)
     {
-        $this->authorize('view', $market);
+        // $this->authorize('view', $market);
         return view('market.show', compact('market'));
     }
 
