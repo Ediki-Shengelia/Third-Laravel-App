@@ -1,7 +1,9 @@
-@if ($rating)
-    @for ($i = 1; $i < 6; $i++)
-        {{ $i < round($rating) ? '★' : '☆' }}
-    @endfor
-@else
-    no rating yet
-@endif
+<p class="text-purple-500 text-2xl inline">
+    @if ($rating)
+        @for ($i = 1; $i < 6; $i++)
+            {{ $i < round($rating) ? '★' : '☆' }}
+        @endfor
+    @else
+        no rating yet
+    @endif
+</p>
