@@ -4,6 +4,12 @@
     @endif
     <h1>Main page</h1>
     <a href="{{ route('market.create') }}">Create</a>
+    <form action="{{ route('market.index') }}" method="get">
+        <input type="text" name="search" value="{{ request('search') }}" id="">
+        <button>search</button>
+        <a href="{{ route('market.index') }}">clear</a>
+    </form>
+
     <ul>
         @forelse ($products as $product)
             <li>

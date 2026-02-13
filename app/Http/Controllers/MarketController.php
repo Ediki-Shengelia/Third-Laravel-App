@@ -12,7 +12,13 @@ class MarketController extends Controller
      */
     public function index()
     {
-        $products = \App\Models\Market::all();
+        $search = request('search');
+        $products = \App\Models\Market::when(
+            $search,
+            fn($q, $search) => $q->title($search)
+        );
+        // $products = \App\Models\Market::all();
+        $products = $products->get();
         return view('market.index', compact('products'));
     }
 
