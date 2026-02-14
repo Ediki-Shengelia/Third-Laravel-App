@@ -1,6 +1,8 @@
 <x-main-layout>
-    <h1>{{ $market->title }}</h1>
-    <form action="{{ route('market.update', $market) }}" method="post" enctype="multipart/form-data">
+    <div class="bg-red-400 shadow-xl shadow-orange-400  w-fit p-2  mt-5 mx-auto">
+        <h1 class="text-4xl  text-center bg-white text-black font-bold ">{{ $market->title }}</h1>
+    </div>
+    <form class="flex flex-col gap-2 w-fit mx-auto mt-4" action="{{ route('market.update', $market) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <select name="type">
@@ -47,6 +49,6 @@
         @error('location')
             <p>{{ $message }}</p>
         @enderror
-        <button>edit</button>
+        <button class="bg-blue-200 w-full py-4 rounded-xl text-2xl text-red-500">edit</button>
     </form>
 </x-main-layout>
