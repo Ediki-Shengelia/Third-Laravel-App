@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProduct;
+use App\Notifications\AddReviewNotification;
 use Illuminate\Http\Request;
 
 class MarketController extends Controller
@@ -53,6 +54,7 @@ class MarketController extends Controller
                 ->store('products', 'public');
         }
         \App\Models\Market::create($data);
+      
         return redirect()->route('market.index')->with('success', 'Photo uploaded successfully');
     }
 

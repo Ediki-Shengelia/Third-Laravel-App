@@ -6,10 +6,21 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 
 class Market extends Model
 {
+    use Notifiable;
+
     use HasFactory;
+    public function isLikedByUser($user)
+    {
+        return $user ? $this->likes()->where('user_id', $user->id)->exists() : false;
+    }
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
     public function reviews()
     {
         return $this->hasMany(Review::class);

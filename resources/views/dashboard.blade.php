@@ -17,5 +17,22 @@
                 </div>
             </div>
         </div>
+        @if (auth()->user()->unreadNotifications->count() > 0)
+            <form action="{{ route('read.all') }}" method="post">
+                @csrf
+                <button>Read all</button>
+            </form>
+            <h2>You Have {{ auth()->user()->unreadNotifications->count() }} unreadNotifications</h2>
+
+
+            @foreach (auth()->user()->unreadNotifications as $item)
+                <form action="{{ route('onlyOne', $item->id) }}" method="post">
+                    @csrf
+                    <button>
+                        {{ $item->data['message'] }}
+                    </button>
+                </form>
+            @endforeach
+        @endif
     </div>
 </x-app-layout>

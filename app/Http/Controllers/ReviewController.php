@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Market;
+use App\Notifications\AddReviewNotification;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -40,7 +41,9 @@ class ReviewController extends Controller
             'rating' => $data['rating'],
             'user_id' => auth()->id(),
         ]);
-
+        if ($market->user_id !== auth()->id()) {
+            $market->user->notify(new AddReviewNotification(($market)));
+        }
         return redirect()->route('market.show', $market);
     }
 

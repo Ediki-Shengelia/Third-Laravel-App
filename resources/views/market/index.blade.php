@@ -57,6 +57,7 @@
                         <span class="text-2xl">
                             {{ $product->reviews_count }} rating
                         </span>
+                        <x-like-button :market="$product" />
                     </div>
                 </a>
             </li>
